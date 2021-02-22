@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 /*
  * @param {integer} // size of one block in byte `` UInt16 ``
  * @param {integer} // number of blocks  `` UInt16 ``
@@ -21,7 +21,7 @@ const CacheBase = function(){
         if(typeof data !== 'string')
             return false;
         return _setBlock(data, block);
-    }
+    };
     /*
      * @param {integer} block
      * @public
@@ -31,7 +31,7 @@ const CacheBase = function(){
         if (Number.isInteger(block))
             return _getString(block);
         return false;
-    }
+    };
     /*
      * @param {integer} block
      * @public
@@ -41,7 +41,7 @@ const CacheBase = function(){
         if (Number.isInteger(block))
             return _getBuffer(block);
         return false;
-    }
+    };
     /*
      * @param {integer} block_size
      * @param {integer} block_count
@@ -53,7 +53,7 @@ const CacheBase = function(){
             block_size,
             block_count
         );
-    }
+    };
     /* just for testing
     this.db = function(){
         return _db;
@@ -90,7 +90,7 @@ const CacheBase = function(){
     const _checkHead = function(){
         _block_size  = _db.readUInt16BE(6);
         _block_count = _db.readUInt16BE(8);
-    }
+    };
     /*
      * @private
      */
@@ -103,7 +103,7 @@ const CacheBase = function(){
             _block_count,
             8
         );
-    }
+    };
     /*
      * @param {integer} block_size
      * @param {integer} block_coount
@@ -111,18 +111,18 @@ const CacheBase = function(){
      * @return {boolean}
      */
     const _createDB = function(block_size, block_count){
-         if ( _started ) // check db is defined
-              return false;
+        if ( _started ) // check db is defined
+            return false;
         _block_size   = parseInt(block_size+4);
         _block_count  = parseInt(block_count);
         // buffer allocatioon
         _db = Buffer.alloc(
-             _sizeCalc()
+            _sizeCalc()
         );
         _writeHead( block_size, block_count);
         _started = true;
         return true;
-    }
+    };
     /*
      * @param {integer} block_size
      * @param {integer} block_coount
@@ -131,7 +131,7 @@ const CacheBase = function(){
      */
     const _sizeCalc = function(){
         return 10+( ( _block_size + 4 ) * _block_count);
-    }
+    };
     /*
      * @param {integer} block
      * @private
@@ -139,7 +139,7 @@ const CacheBase = function(){
      */
     const _headPosition = function(block){
         return 10+( ( _block_size + 4 ) * block);
-    }
+    };
     /*
      * @param {integer} block
      * @private
@@ -147,7 +147,7 @@ const CacheBase = function(){
      */
     const _blockSizePosition = function(block){
         return 10+( ( _block_size + 4 ) * block)+2;
-    }
+    };
     /*
      * @param {integer} block
      * @private
@@ -155,7 +155,7 @@ const CacheBase = function(){
      */
     const _blockPosition = function(block){
         return 10+( ( _block_size + 4 ) * block)+4;
-    }
+    };
     /*
      * @param {integer} block
      * @private
@@ -163,23 +163,23 @@ const CacheBase = function(){
      */
     const _readBlockSize = function(block){
         let size = _db.readUInt16BE(
-             _blockSizePosition(block)
+            _blockSizePosition(block)
         );
 
         return size;
-    }
+    };
     /*
      * @param {integer} block
      * @param {integer} data_size
      * @private
      */
     const _writeBlockSize = function(block, data_size){
-         _db.writeUInt16BE(
-              data_size,
-             _blockSizePosition(block)
+        _db.writeUInt16BE(
+            data_size,
+            _blockSizePosition(block)
         );
 
-    }
+    };
     /*
      * @param {string} data
      * @param {integer} block
@@ -187,18 +187,18 @@ const CacheBase = function(){
      * @return {boolean}
      */
     const _setBlock = function( data, block ){
-         let size = Buffer.byteLength(data);
-         let position = _blockPosition( block );
-         _db.write(
-             data,
-             position,
-         );
-         _writeBlockSize( 
-             block,
-             size
-         );
-         return true;
-    }
+        let size = Buffer.byteLength(data);
+        let position = _blockPosition( block );
+        _db.write(
+            data,
+            position,
+        );
+        _writeBlockSize( 
+            block,
+            size
+        );
+        return true;
+    };
     /*
      * @param {integer} block
      * @private
@@ -212,7 +212,7 @@ const CacheBase = function(){
             position,
             end
         );
-    }
+    };
     /*
      * @param {integer} block
      * @private
@@ -223,11 +223,11 @@ const CacheBase = function(){
         let size = _readBlockSize( block );
         let end = size + position;
         let out  = Buffer.alloc(size);
-        _db.copy(out, 0, posittion, end);
+        _db.copy(out, 0, position, end);
         return out;
 
-    }
-}
+    };
+};
 
 exports.Base =  CacheBase;
 
