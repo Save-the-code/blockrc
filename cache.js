@@ -5,18 +5,26 @@
  * @prototype
  */
 const CacheBase = function(){
-    this.set = function(data, block){
+    this.setString = function(data, block){
         if(Buffer.byteLength(data) > _block_size)
+            return false;
+        if (!Number.isInteger( block ))
             return false;
         if(block >= _block_count)
             return false;
+        if(typeof data !== 'string')
+            return false;
         return _setBlock(data, block);
     }
-    this.getString = function(block){
-        return _getString(block);
+    this.getString = function( block ){
+        if (Number.isInteger(block))
+            return _getString(block);
+        return false;
     }
-    this.getBuffer = function(block){
-        return _getBuffer(block);
+    this.getBuffer = function( block ){
+        if (Number.isInteger(block))
+            return _getBuffer(block);
+        return false;
     }
     this.create = function( size, block ){
         return _createDB( size, block );
