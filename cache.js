@@ -1,12 +1,10 @@
 'use strict';
 /*
- * @param {integer} // size of one block in byte `` UInt16 ``
- * @param {integer} // number of blocks  `` UInt16 ``
  * @prototype
  */
 const CacheBase = function(){
     /*
-     * @param {string} data
+     * @param {string} data 
      * @param {integer} block
      * @public
      * @return {booolean}
