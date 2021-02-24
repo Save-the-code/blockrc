@@ -64,8 +64,8 @@ Easy for extend and easy to change.
 
 ### block type
 
-   | bit |
-   +-----+-----------
+   | bit | function
+   |-----|-----------
    |  1  |  empty
    |  2  |  multi
    |  3  |  compressed
