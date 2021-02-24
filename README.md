@@ -1,4 +1,4 @@
-#What is blockrc!
+# What is blockrc!
 
 The blockrc is an unsearchable data storage lib for blockchain based calculation.
 Its designed for larger data collection.
@@ -7,7 +7,7 @@ The blocks are buffers so they can hold anything. (string, integer, json, binary
 Some data can be multi block size.
 
 
-#Block types.
+# Block types.
 
 
 ## Fix sized block type.
