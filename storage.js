@@ -80,11 +80,32 @@ const StorageBase = function(){
      * @private
      * @return {boolean}
     */
+    const _checkFile = async function(){
+        let error;
+        let stat;
+        await fs.stat(
+             _file_name,
+             function(e, s){
+                 error = e;
+                 stat  = s;
+             }
+        );
+        if(error === null)
+            return true;
+        return false;
+    }
+
+    /*
+     * @param {string}
+     * @private
+     * @return {boolean}
+    */
     const _openFile = async function(file_name){
-        let biffer = Buffer.alloc(32)
+        if((await)
+        let buffer = Buffer.alloc(32)
         _file_name = file_name;
         await fs.open(
-             file_name,
+             _file_name,
              'r', 
              function(err, fd){
                  if (err) throw err;
